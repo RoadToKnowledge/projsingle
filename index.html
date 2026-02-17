@@ -14,12 +14,51 @@
         <div class="logo-text">
             <img src="https://cdn.ucl.ac.uk/logos/ucl/ucl-logo--primary.svg" alt="" srcset="">
         </div>
-        <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Events</a>
-            <a href="#">Jobs</a>
-            <a href="#">Mentorship</a>
-        </nav>
+        <nav class="nav">
+    <ul class="nav-links">
+      <li class="has-submenu">
+        <a href="#" class="nav-item active">Home</a>
+        <ul class="submenu">
+          <li><a href="#">Feed</a></li>
+          <li><a href="#">My Profile</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">UCL Alumni Website</a></li>
+          <li><a href="#">UCL Bursaries and Scholarships</a></li>
+          <li><a href="#">Donations</a></li>
+        </ul>
+      </li>
+
+      <li class="has-submenu">
+        <a href="#" class="nav-item">Events</a>
+        <ul class="submenu">
+          <li><a href="#">Events</a></li>
+          <li><a href="#">My Calendar</a></li>
+          <li><a href="#">Past Events</a></li>
+          <li><a href="#">Alumni Events Committee</a></li>
+        </ul>
+      </li>
+
+      <li class="has-submenu">
+        <a href="#" class="nav-item">Jobs</a>
+        <ul class="submenu">
+          <li><a href="#">Job Board</a></li>
+          <li><a href="#">Career Opportunities</a></li>
+          <li><a href="#">Recruiter Access</a></li>
+          <li><a href="#">Candidate User Guide</a></li>
+        </ul>
+      </li>
+
+      <li class="has-submenu">
+        <a href="#" class="nav-item">Mentorship</a>
+        <ul class="submenu">
+          <li><a href="#">Find Mentors</a></li>
+          <li><a href="#">Become a Mentor</a></li>
+          <li><a href="#">My Mentorship</a></li>
+          <li><a href="#">Mentorship FAQs</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
         <div class="user-profile">
             <span>Seed Sarah</span>
             <img src="https://picsum.photos/id/64/100/100" alt="Sarah">
@@ -133,6 +172,50 @@
         <img class="made-company-logo" src="./WhatsApp Image 2026-02-15 at 21.05.02.jpeg" alt="" srcset="">
         <p class="brand-text">MADE BY YAVA</p>
     </div>
+    <script>
+  // 1) Active state on click (main nav + submenu)
+  const mainNavLinks = document.querySelectorAll('.nav-links .nav-item');
+  const allNavLinks = document.querySelectorAll('.nav-links a');
+
+  function setActive(mainLink) {
+    mainNavLinks.forEach(a => a.classList.remove('active'));
+    if (mainLink) mainLink.classList.add('active');
+  }
+
+  // Main nav click -> active
+  mainNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // If href="#" keep preventDefault. If you use real pages, remove next line.
+      e.preventDefault();
+      setActive(link);
+    });
+  });
+
+  // Submenu click -> parent main nav active
+  document.querySelectorAll('.nav-links .has-submenu .submenu a').forEach(subLink => {
+    subLink.addEventListener('click', (e) => {
+      // If href="#" keep preventDefault. If you use real pages, remove next line.
+      e.preventDefault();
+      const parentMain = subLink.closest('.has-submenu')?.querySelector('.nav-item');
+      setActive(parentMain);
+    });
+  });
+
+  // 2) Optional: close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    const clickedInsideNav = e.target.closest('.nav-links');
+    if (!clickedInsideNav) {
+      document.querySelectorAll('.has-submenu').forEach(li => li.classList.remove('open'));
+    }
+  });
+
+  // 3) Optional: prevent submenu clicks from bubbling to document close handler
+  document.querySelectorAll('.submenu').forEach(menu => {
+    menu.addEventListener('click', (e) => e.stopPropagation());
+  });
+</script>
+
+    
 </body>
 
 </html>
